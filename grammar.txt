@@ -1,0 +1,137 @@
+N -> hat
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> elephant
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> garden
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> apple
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> time
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> flight
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> banana
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> flies
+    <N HEAD AGR NUMBER> = pl
+N -> boy
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> man
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+N -> telescope
+    <N HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+
+NN -> john
+    <NN HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+NN -> mary
+    <NN HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+NN -> houston
+    <NN HEAD AGR NUMBER> = sg
+    <N HEAD AGR PERSON> = 3rd
+
+ADJ -> giant
+ADJ -> red
+
+D -> the
+D -> a
+    <D HEAD AGR NUMBER> = sg
+D -> an
+    <D HEAD AGR NUMBER> = sg
+
+V -> book
+    <V HEAD AGR NUMBER> = pl
+V -> books
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
+V -> eat
+    <V HEAD AGR NUMBER> = pl
+V -> eats
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
+V -> sleep
+    <V HEAD AGR NUMBER> = pl
+V -> sleeps
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
+V -> give
+    <V HEAD AGR NUMBER> = pl
+V -> gives
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
+V -> walk
+    <V HEAD AGR NUMBER> = pl
+V -> walks
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
+V -> saw
+    <V HEAD AGR NUMBER> = pl
+
+P -> with
+P -> in
+P -> on
+P -> at
+P -> through
+
+PR -> he
+    <PR HEAD AGR NUMBER> = sg
+    <PR HEAD AGR PERSON> = 3rd
+    <PR HEAD AGR CAT> = subject
+PR -> she
+    <PR HEAD AGR CAT> = subject
+    <PR HEAD AGR NUMBER> = sg
+    <PR HEAD AGR PERSON> = 3rd
+PR -> his
+    <PR HEAD AGR CAT> = object
+PR -> her
+    <PR HEAD AGR CAT> = object
+
+NP -> NN
+    <NN HEAD AGR CAT> = subject
+    <NP HEAD> = <NN HEAD>
+NP -> D N
+    <N HEAD AGR CAT> = subject
+    <D HEAD NUMBER> = <N HEAD NUMBER>
+    <NP HEAD> = <N HEAD>
+NP -> D ADJ N
+    <N HEAD AGR CAT> = subject
+    <D HEAD NUMBER> = <N HEAD NUMBER>
+    <NP HEAD> = <N HEAD>
+NP -> PR
+    <PR HEAD AGR CAT> = subject
+    <NP HEAD> = <PR HEAD>
+NP -> PR N
+    <N HEAD AGR CAT> = subject
+    <NP HEAD> = <N HEAD>
+NP -> NP PP
+    <NP HEAD> = <PP HEAD>
+
+PP -> P NP
+    <PP HEAD = NP HEAD>
+
+VP -> V
+    <VP HEAD> = <V HEAD>
+VP -> V NP
+    <VP HEAD> = <V HEAD>
+VP -> V NP NP
+<NP HEAD AGR CAT> = object
+VP -> VP PP
+    <VP HEAD> = <VP HEAD>
+
+S -> NP VP
+    <NP HEAD AGR> = <VP HEAD AGR>
+    <S HEAD> = <VP HEAD>
+
+S -> VP
+    <S HEAD> = <VP HEAD>
