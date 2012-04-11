@@ -84,6 +84,9 @@ P -> on
 P -> at
 P -> through
 
+JOIN -> that
+JOIN -> which
+
 PR -> he
     <PR HEAD AGR NUMBER> = sg
     <PR HEAD AGR PERSON> = 3rd
@@ -135,3 +138,5 @@ S -> NP VP
 
 S -> VP
     <S HEAD> = <VP HEAD>
+
+S -> S JOIN S
