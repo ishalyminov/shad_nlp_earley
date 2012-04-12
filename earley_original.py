@@ -421,9 +421,5 @@ if __name__ == "__main__":
             tree.dump()
             print
 
-    parse_and_print(g, "book the flight through houston")
-    parse_and_print(g, "john saw the boy with the telescope")
-    parse_and_print(g, "john sleeps")
-    parse_and_print(g, "he gives mary his hat")
-    parse_and_print(g, "an elephant walks in the garden")
-    parse_and_print(g, "a giant man eats a giant apple")
+    # phrases of your choice for testing parsing improvements
+    parse_and_print(g, 'flies eat a banana')

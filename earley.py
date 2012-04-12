@@ -63,6 +63,10 @@ class ConstrainedProduction(Production):
     def __init__(self, feature_structure, *terms):
         Production.__init__(self, *terms)
         self.avm = feature_structure
+    def __eq__(self, other):
+        if not isinstance(other, ConstrainedProduction):
+            return False
+        return self.terms == other.terms and self.avm == other.avm
 
 class Rule(object):
     def __init__(self, name, *productions):
@@ -186,7 +190,7 @@ class GrammarBuilder(object):
         self.feature_builder = constraint.FeatureStructureBuilder()
     
     def process_line(self, in_number, in_line):
-        line_type = constraint.line_type(in_line)
+        line_type = constraint.line_type(in_line.strip())
         if line_type == 'CONSTRAINT':
             self.process_constraint(in_number, in_line)
             self.last_production.avm = self.feature_builder.avm
@@ -408,32 +412,54 @@ if __name__ == "__main__":
         return len(trees)
 
     phrases_part_1_positive = [
-        'a boy eats', \
-        'john sleeps', \
-        'book the flight', \
-        'mary walks', \
-        'a giant elephant eats mary', \
-        'he walks with his hat', \
-        'he gives mary his hat', \
-        'an elephant walks in the garden', \
-        'a giant man eats a giant apple', \
-        'the flies sleep in the garden' \
+        'a boy eats',
+        'john sleeps',
+        'book the flight',
+        'mary walks',
+        'a giant elephant eats mary',
+        'he walks with his hat',
+        'he gives mary his hat',
+        'an elephant walks in the garden',
+        'a giant man eats a giant apple',
+        'the flies sleep in the garden'
     ]
     
     phrases_part_1_negative = [
-        'a boys eats', \
-        'john sleep', \
-        'book a flights', \
-        'mary walk', \
-        'a giant elephant eat mary', \
-        'his walks with his hat', \
-        'he gives mary he hat', \
-        'an elephant walk in the garden', \
-        'a giant man eat a giant apple', \
-        'a flies sleeps in the garden' \
+        'a boys eats',
+        'john sleep',
+        'book a flights',
+        'mary walk',
+        'a giant elephant eat mary',
+        'his walks with his hat',
+        'he gives mary he hat',
+        'an elephant walk in the garden',
+        'a giant man eat a giant apple',
+        'a flies sleeps in the garden'
+    ]
+    
+    phrases_part_2 = [
+        'a boy who walks in the garden eats a giant apple',
+        'he walks with his elephant that walks with an elephant that walks in the garden',
+        'he gives mary an apple that the flies eat',
+        'mary who eats an apple books a flight through a garden',
+        'a boy saw a man who walks in a garden with a telescope',
+        'a giant elephant eats the flies that eat a banana',
+        'mary saw a man who saw john in the garden',
+        'a boy books an apple that john gives mary',
+        'a boy saw an elephant with an apple that mary gave',
+        'a man that booked a flight sleeps in houston',
+        'mary eats an elephant that sleeps',
+        'an elephant sleeps in the garden where the flies fly',
+        'john walks in the garden where mary eats an apple',
+        'the flies eat an elephant that sleeps in the garden where mary walks with john',
+        'the time stops when john eats an apple in the garden'
     ]
 
     print 'Part 1 phrases:'
     for phrase in phrases_part_1_negative + phrases_part_1_positive:
+        if not parse_and_print(g, phrase):
+            print '*', phrase
+    print 'Part 2 phrases:'
+    for phrase in phrases_part_2:
         if not parse_and_print(g, phrase):
             print '*', phrase

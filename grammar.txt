@@ -1,3 +1,5 @@
+# You can put one-line comments in the grammar just like this
+
 N -> hat
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
@@ -33,13 +35,13 @@ N -> telescope
 
 NN -> john
     <NN HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
+    <NN HEAD AGR PERSON> = 3rd
 NN -> mary
     <NN HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
+    <NN HEAD AGR PERSON> = 3rd
 NN -> houston
     <NN HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
+    <NN HEAD AGR PERSON> = 3rd
 
 ADJ -> giant
 ADJ -> red
@@ -55,6 +57,7 @@ V -> book
 V -> books
     <V HEAD AGR NUMBER> = sg
     <V HEAD AGR PERSON> = 3rd
+V -> booked
 V -> eat
     <V HEAD AGR NUMBER> = pl
 V -> eats
@@ -62,6 +65,7 @@ V -> eats
     <V HEAD AGR PERSON> = 3rd
 V -> sleep
     <V HEAD AGR NUMBER> = pl
+V -> slept
 V -> sleeps
     <V HEAD AGR NUMBER> = sg
     <V HEAD AGR PERSON> = 3rd
@@ -70,13 +74,18 @@ V -> give
 V -> gives
     <V HEAD AGR NUMBER> = sg
     <V HEAD AGR PERSON> = 3rd
+V -> gave
 V -> walk
     <V HEAD AGR NUMBER> = pl
 V -> walks
     <V HEAD AGR NUMBER> = sg
     <V HEAD AGR PERSON> = 3rd
 V -> saw
-    <V HEAD AGR NUMBER> = pl
+    <V HEAD AGR NUMBER> = sg
+V -> fly
+V -> stops
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD AGR PERSON> = 3rd
 
 P -> with
 P -> in
@@ -84,8 +93,12 @@ P -> on
 P -> at
 P -> through
 
-JOIN -> that
-JOIN -> which
+SUBCOORD -> that
+SUBCOORD -> which
+SUBCOORD -> who
+SUBCOORD -> whom
+SUBCOORD -> where
+SUBCOORD -> when
 
 PR -> he
     <PR HEAD AGR NUMBER> = sg
@@ -105,20 +118,23 @@ NP -> NN
     <NP HEAD> = <NN HEAD>
 NP -> D N
     <N HEAD AGR CAT> = subject
-    <D HEAD NUMBER> = <N HEAD NUMBER>
+    <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <NP HEAD> = <N HEAD>
 NP -> D ADJ N
     <N HEAD AGR CAT> = subject
-    <D HEAD NUMBER> = <N HEAD NUMBER>
+    <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <NP HEAD> = <N HEAD>
 NP -> PR
     <PR HEAD AGR CAT> = subject
     <NP HEAD> = <PR HEAD>
 NP -> PR N
     <N HEAD AGR CAT> = subject
+    <PR HEAD AGR CAT> = object
     <NP HEAD> = <N HEAD>
 NP -> NP PP
     <NP HEAD> = <PP HEAD>
+# a rule for sentence dependent to a noun (e.g., 'he eats [an apple] -> (that john gave her)')
+NP -> NP SUBCOORD S
 
 PP -> P NP
     <PP HEAD = NP HEAD>
@@ -128,9 +144,10 @@ VP -> V
 VP -> V NP
     <VP HEAD> = <V HEAD>
 VP -> V NP NP
-<NP HEAD AGR CAT> = object
 VP -> VP PP
     <VP HEAD> = <VP HEAD>
+# a rule for sentence dependent to a verb (e.g., 'she [walks] -> (where nobody walked before)')
+VP -> VP SUBCOORD S
 
 S -> NP VP
     <NP HEAD AGR> = <VP HEAD AGR>
@@ -138,5 +155,3 @@ S -> NP VP
 
 S -> VP
     <S HEAD> = <VP HEAD>
-
-S -> S JOIN S

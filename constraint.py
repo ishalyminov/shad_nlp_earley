@@ -3,12 +3,15 @@ import copy
 
 CONSTRAINT_PATTERN = '<(.+)>\s*=\s*(.+)'
 RULE_PATTERN = '[^<>]+\s+->\s+[^<>]'
+COMMENT_PATTERN = '^#'
 
 def new_empty_avm():
     return {'pointer': None, 'content': None}
 
 def line_type(in_line):
-    if len(re.findall(CONSTRAINT_PATTERN, in_line)):
+    if len(re.findall(COMMENT_PATTERN, in_line)):
+        return 'COMMENT'
+    elif len(re.findall(CONSTRAINT_PATTERN, in_line)):
         return 'CONSTRAINT'
     elif len(re.findall(RULE_PATTERN, in_line)):
         return 'RULE'
