@@ -3,7 +3,8 @@ EXAMPLE_FILES = [
     'examples/task_1_negative',
     'examples/task_2',
     'examples/task_4_positive',
-    'examples/task_4_negative'
+    'examples/task_4_negative',
+    'examples/task_5'
 ]
 
 # returns a (header, examples) tuple
