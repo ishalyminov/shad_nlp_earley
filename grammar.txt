@@ -3,35 +3,45 @@
 N -> hat
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> elephant
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = an
 N -> garden
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> apple
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = an
 N -> time
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> flight
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> banana
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> flies
     <N HEAD AGR NUMBER> = pl
 N -> boy
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> man
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 N -> telescope
     <N HEAD AGR NUMBER> = sg
     <N HEAD AGR PERSON> = 3rd
+    <N HEAD AGR ARTICLETYPE> = a
 
 NN -> john
     <NN HEAD AGR NUMBER> = sg
@@ -44,13 +54,17 @@ NN -> houston
     <NN HEAD AGR PERSON> = 3rd
 
 ADJ -> giant
+    <ADJ HEAD ARG ARTICLETYPE> = an
 ADJ -> red
+    <ADJ HEAD ARG ARTICLETYPE> = an
 
 D -> the
 D -> a
     <D HEAD AGR NUMBER> = sg
+    <D HEAD AGR ARTICLETYPE> = a
 D -> an
     <D HEAD AGR NUMBER> = sg
+    <D HEAD AGR ARTICLETYPE> = an
 
 V -> book
     <V HEAD AGR NUMBER> = pl
@@ -119,10 +133,12 @@ NP -> NN
 NP -> D N
     <N HEAD AGR CAT> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
+    <D HEAD AGR ARTICLETYPE> = <N HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
 NP -> D ADJ N
     <N HEAD AGR CAT> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
+    <D HEAD AGR ARTICLETYPE> = <ADJ HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
 NP -> PR
     <PR HEAD AGR CAT> = subject
