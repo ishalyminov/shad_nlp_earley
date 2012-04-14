@@ -422,4 +422,4 @@ if __name__ == "__main__":
             print
 
     # phrases of your choice for testing parsing improvements
-    parse_and_print(g, 'flies eat a banana')
+    parse_and_print(g, 'mary walks through houston')

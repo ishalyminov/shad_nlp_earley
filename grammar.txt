@@ -2,61 +2,50 @@
 
 N -> hat
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> elephant
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = an
 N -> garden
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> apple
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = an
 N -> time
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> flight
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> banana
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> flies
     <N HEAD AGR NUMBER> = pl
 N -> boy
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> man
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 N -> telescope
     <N HEAD AGR NUMBER> = sg
-    <N HEAD AGR PERSON> = 3rd
     <N HEAD AGR ARTICLETYPE> = a
 
 NN -> john
     <NN HEAD AGR NUMBER> = sg
-    <NN HEAD AGR PERSON> = 3rd
 NN -> mary
     <NN HEAD AGR NUMBER> = sg
-    <NN HEAD AGR PERSON> = 3rd
 NN -> houston
     <NN HEAD AGR NUMBER> = sg
-    <NN HEAD AGR PERSON> = 3rd
 
 ADJ -> giant
     <ADJ HEAD ARG ARTICLETYPE> = an
 ADJ -> red
     <ADJ HEAD ARG ARTICLETYPE> = an
+ADJ -> ADJ ADJ
+    <ADJ HEAD> = <ADJ HEAD>
 
 D -> the
 D -> a
@@ -68,44 +57,58 @@ D -> an
 
 V -> book
     <V HEAD AGR NUMBER> = pl
+    <V HEAD SUBCAT FIRST CAT> = NP
 V -> books
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
+    <V HEAD SUBCAT FIRST CAT> = NP
 V -> booked
+    <V HEAD SUBCAT FIRST CAT> = NP
 V -> eat
     <V HEAD AGR NUMBER> = pl
 V -> eats
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
 V -> ate
 V -> sleep
     <V HEAD AGR NUMBER> = pl
+    <V HEAD SUBCAT FIRST CAT> = PP
 V -> slept
+    <V HEAD SUBCAT FIRST CAT> = PP
 V -> sleeps
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
+    <V HEAD SUBCAT FIRST CAT> = PP
 V -> give
     <V HEAD AGR NUMBER> = pl
+    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD SUBCAT SECOND CAT> = PP
+# a verb with valency = 3
 V -> gives
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
+    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD SUBCAT SECOND CAT> = PP
 V -> gave
+    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD SUBCAT SECOND CAT> = PP
+V -> goes
+    <V HEAD AGR NUMBER> = sg
+    <V HEAD SUBCAT FIRST CAT> = PP
 V -> walk
     <V HEAD AGR NUMBER> = pl
 V -> walks
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
+    <V HEAD SUBCAT FIRST CAT> = PP
 V -> saw
     <V HEAD AGR NUMBER> = sg
+    <V HEAD SUBCAT FIRST CAT> = NP
 V -> see
     <V HEAD AGR NUMBER> = pl
+    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD SUBCAT SECOND CAT> = PP
 V -> sees
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
+    <V HEAD SUBCAT FIRST CAT> = NP
 V -> fly
 V -> stops
     <V HEAD AGR NUMBER> = sg
-    <V HEAD AGR PERSON> = 3rd
 
 WH_AUX -> does
     <WH_AUX HEAD AGR NUMBER> = sg
@@ -113,6 +116,7 @@ WH_AUX -> do
     <WH_AUX HEAD AGR NUMBER> = pl
 WH_AUX -> did
 
+# prepositions
 P -> with
 P -> in
 P -> on
@@ -120,78 +124,112 @@ P -> at
 P -> through
 P -> to
 
-SUBCOORD -> that
-SUBCOORD -> which
-SUBCOORD -> who
-SUBCOORD -> whom
-SUBCOORD -> where
-SUBCOORD -> when
-
-WH -> what
-WH -> where
-WH -> when
-WH -> why
-WH -> whom
-
+# pronouns
 PR -> he
     <PR HEAD AGR NUMBER> = sg
-    <PR HEAD AGR PERSON> = 3rd
-    <PR HEAD AGR CAT> = subject
+    <PR HEAD AGR CASE> = subject
 PR -> she
-    <PR HEAD AGR CAT> = subject
+    <PR HEAD AGR CASE> = subject
     <PR HEAD AGR NUMBER> = sg
-    <PR HEAD AGR PERSON> = 3rd
 PR -> his
-    <PR HEAD AGR CAT> = object
+    <PR HEAD AGR CASE> = object
 PR -> her
-    <PR HEAD AGR CAT> = object
+    <PR HEAD AGR CASE> = object
+PR -> who
+    <PR HEAD AGR CASE> = subject
+    <PR HEAD WH> = true
+PR -> what
+    <PR HEAD WH> = true
+PR -> whom
+    <PR HEAD AGR CASE> = object
+    <PR HEAD WH> = true
+PR -> that
+    <PR HEAD AGR CASE> = object
+
+# adverbs
+ADV -> where
+    <ADV HEAD WH> = true
+ADV -> when
+    <ADV HEAD WH> = true
+ADV -> why
+    <ADV HEAD WH> = true
+
+SUBCOORD -> ADV
+    <SUBCOORD HEAD> = <ADV HEAD>
+SUBCOORD -> PR
+    <PR HEAD WH> = true
+    <SUBCOORD HEAD> = <PR HEAD>
 
 NP -> NN
-    <NN HEAD AGR CAT> = subject
+    <NN HEAD AGR CASE> = subject
     <NP HEAD> = <NN HEAD>
+    <NP HEAD CAT> = NP
 NP -> D N
-    <N HEAD AGR CAT> = subject
+    <N HEAD AGR CASE> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <D HEAD AGR ARTICLETYPE> = <N HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
+    <NP HEAD CAT> = NP
 NP -> D ADJ N
-    <N HEAD AGR CAT> = subject
+    <N HEAD AGR CASE> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <D HEAD AGR ARTICLETYPE> = <ADJ HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
+    <NP HEAD CAT> = NP
 NP -> PR
-    <PR HEAD AGR CAT> = subject
+    <PR HEAD AGR CASE> = subject
     <NP HEAD> = <PR HEAD>
 NP -> PR N
-    <N HEAD AGR CAT> = subject
-    <PR HEAD AGR CAT> = object
+    <N HEAD AGR CASE> = subject
+    <PR HEAD AGR CASE> = object
     <NP HEAD> = <N HEAD>
 NP -> NP PP
     <NP HEAD> = <PP HEAD>
 # a rule for sentence dependent to a noun (e.g., 'he eats [an apple] -> (that john gave her)')
-NP -> NP SUBCOORD S
+NP -> NP S_DEPEND
+    <NP HEAD CAT> = NP
 
 PP -> P NP
-    <PP HEAD = NP HEAD>
+    <PP HEAD AGREEMENT = NP HEAD AGREEMENT>
+    <PP HEAD CAT> = PP
 
 VP -> V
     <VP HEAD> = <V HEAD>
+    <VP HEAD SUBCAT FIRST> = none
+VP -> V PP
+    <VP HEAD> = <V HEAD>
+    <VP HEAD SUBCAT FIRST CAT> = <PP HEAD CAT>
+    <VP HEAD SUBCAT SECOND> = none
 VP -> V NP
     <VP HEAD> = <V HEAD>
+    <VP HEAD SUBCAT FIRST CAT> = <NP HEAD CAT>
+    <VP HEAD SUBCAT SECOND> = none
+VP -> V NP PP
+    <VP HEAD> = <V HEAD>
+    <VP HEAD SUBCAT FIRST CAT> = <NP HEAD CAT>
+    <VP HEAD SUBCAT SECOND CAT> = <PP HEAD CAT>
+    <VP HEAD SUBCAT THIRD> = none
 VP -> V NP NP
+    <VP HEAD> = <V HEAD>
 VP -> VP PP
     <VP HEAD> = <VP HEAD>
-# a rule for sentence dependent to a verb (e.g., 'she [walks] -> (where nobody walked before)')
-VP -> VP SUBCOORD S
-
+VP -> V S_DEPEND
+    <VP HEAD> = <V HEAD>
 S -> NP VP
     <NP HEAD AGR> = <VP HEAD AGR>
     <S HEAD> = <VP HEAD>
 
 S -> VP
+    <VP HEAD AGR NUMBER> = pl
     <S HEAD> = <VP HEAD>
+
+# dependent sentences
+S_DEPEND -> SUBCOORD S
+S_DEPEND -> SUBCOORD VP
+
 # a wh-sentence rule
 S -> WH_S
-WH_S -> WH WH_AUX NP VP
+WH_S -> SUBCOORD WH_AUX NP VP
     <VP HEAD AGR NUMBER> = pl
     <WH_AUX HEAD AGR NUMBER> = <NP HEAD AGR NUMBER>
+    <SUBCOORD HEAD WH> = true

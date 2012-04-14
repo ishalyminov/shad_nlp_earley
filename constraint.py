@@ -62,9 +62,9 @@ class FeatureStructureBuilder(object):
 
 def follow_path(in_avm, in_name):
     avm = dereference(in_avm)
-    if isinstance(in_avm['content'], dict) and in_name in in_avm['content']:
-        return in_avm['content'][in_name]
-    return in_avm
+    if isinstance(avm['content'], dict) and in_name in avm['content']:
+        return avm['content'][in_name]
+    return avm
 
 def dereference(in_avm):
     while in_avm and in_avm['pointer']:

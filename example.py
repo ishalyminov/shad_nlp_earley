@@ -4,7 +4,9 @@ EXAMPLE_FILES = [
     'examples/task_2',
     'examples/task_4_positive',
     'examples/task_4_negative',
-    'examples/task_5'
+    'examples/task_5',
+    'examples/task_7_negative',
+    'examples/task_7_positive'
 ]
 
 # returns a (header, examples) tuple
