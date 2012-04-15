@@ -386,6 +386,8 @@ def qtree(node):
 
 ################################################################################
 
+import re
+
 if __name__ == "__main__":
     # You can specify grammar either by hard-coding it or by loading from file.
     # 
@@ -411,7 +413,7 @@ if __name__ == "__main__":
             tree.dump()
             print
         return len(trees)
-
+    
     for example_file in example.EXAMPLE_FILES:
         (header, lines) = example.load_examples(open(example_file))
         if not header or not lines:

@@ -41,9 +41,9 @@ NN -> houston
     <NN HEAD AGR NUMBER> = sg
 
 ADJ -> giant
-    <ADJ HEAD ARG ARTICLETYPE> = an
+    <ADJ HEAD AGR ARTICLETYPE> = a
 ADJ -> red
-    <ADJ HEAD ARG ARTICLETYPE> = an
+    <ADJ HEAD AGR ARTICLETYPE> = a
 ADJ -> ADJ ADJ
     <ADJ HEAD> = <ADJ HEAD>
 
