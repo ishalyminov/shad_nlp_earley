@@ -1,11 +1,14 @@
 EXAMPLE_FILES = [
-    'examples/task_1_positive',
-    'examples/task_1_negative',
-    'examples/task_2',
-    'examples/task_4_positive',
-    'examples/task_4_negative',
-    'examples/task_5',
-    'examples/task_7_negative',
+    #'examples/task_1_positive',
+    #'examples/task_1_negative',
+    #'examples/task_2',
+    #'examples/task_3',
+    #'examples/task_4_positive',
+    #'examples/task_4_negative',
+    #'examples/task_5',
+    #'examples/task_6_negative',
+    #'examples/task_6_positive',
+    #'examples/task_7_negative',
     'examples/task_7_positive'
 ]
 

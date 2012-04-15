@@ -257,7 +257,7 @@ class GrammarBuilder(object):
         if self.starting_rule:
             return self.non_terminals[starting_rule]
         else:
-            return self.non_terminals["S"]
+            return self.non_terminals["S_NOGAPS"]
 
 # INTERNAL SUBROUTINES FOR EARLEY ALGORITHM
 ################################################################################
@@ -306,7 +306,10 @@ GAMMA_RULE = "GAMMA"
 # ENTRY POINT FOR EARLEY ALGORITHM
 ################################################################################
 def parse(starting_rule, text):
-    text_with_indexes = enumerate([ None ] + text.lower().split())
+    # text_with_indexes = enumerate([ None ] + text.lower().split())
+    import string
+    splitted = string.replace(text.lower(), ',', ' , ').split()
+    text_with_indexes = enumerate([ None ] + splitted)
 
     table = [ Column(i, token) for i, token in text_with_indexes ]
     

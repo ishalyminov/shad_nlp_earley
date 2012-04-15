@@ -40,11 +40,15 @@ NN -> mary
 NN -> houston
     <NN HEAD AGR NUMBER> = sg
 
+MOD -> very
+MOD -> MOD MOD
 ADJ -> giant
     <ADJ HEAD AGR ARTICLETYPE> = a
 ADJ -> red
     <ADJ HEAD AGR ARTICLETYPE> = a
 ADJ -> ADJ ADJ
+    <ADJ HEAD> = <ADJ HEAD>
+ADJ -> MOD ADJ
     <ADJ HEAD> = <ADJ HEAD>
 
 D -> the
@@ -57,12 +61,12 @@ D -> an
 
 V -> book
     <V HEAD AGR NUMBER> = pl
-    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD GAP> = NP
 V -> books
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD GAP> = NP
 V -> booked
-    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD GAP> = NP
 V -> eat
     <V HEAD AGR NUMBER> = pl
 V -> eats
@@ -70,51 +74,55 @@ V -> eats
 V -> ate
 V -> sleep
     <V HEAD AGR NUMBER> = pl
-    <V HEAD SUBCAT FIRST CAT> = PP
+    <V HEAD GAP> = PP
 V -> slept
-    <V HEAD SUBCAT FIRST CAT> = PP
+    <V HEAD GAP> = PP
 V -> sleeps
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = PP
+    <V HEAD GAP> = PP
 V -> give
     <V HEAD AGR NUMBER> = pl
-    <V HEAD SUBCAT FIRST CAT> = NP
-    <V HEAD SUBCAT SECOND CAT> = PP
+    <V HEAD GAP> = NP
 # a verb with valency = 3
 V -> gives
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = NP
-    <V HEAD SUBCAT SECOND CAT> = PP
+    <V HEAD GAP> = NP
 V -> gave
-    <V HEAD SUBCAT FIRST CAT> = NP
-    <V HEAD SUBCAT SECOND CAT> = PP
+    <V HEAD GAP> = NP
 V -> goes
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = PP
+    <V HEAD GAP> = PP
+V -> go
+    <V HEAD AGR NUMBER> = pl
+    <V HEAD GAP> = PP
 V -> walk
     <V HEAD AGR NUMBER> = pl
+    <V HEAD GAP> = PP
 V -> walks
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = PP
+    <V HEAD GAP> = PP
 V -> saw
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD GAP> = NP
 V -> see
     <V HEAD AGR NUMBER> = pl
-    <V HEAD SUBCAT FIRST CAT> = NP
-    <V HEAD SUBCAT SECOND CAT> = PP
+    <V HEAD GAP> = NP
 V -> sees
     <V HEAD AGR NUMBER> = sg
-    <V HEAD SUBCAT FIRST CAT> = NP
+    <V HEAD GAP> = NP
 V -> fly
 V -> stops
     <V HEAD AGR NUMBER> = sg
+V -> thinks
+    <V HEAD AGR NUMBER> = sg
+V -> think
+    <V HEAD AGR NUMBER> = pl
 
-WH_AUX -> does
+V_AUX -> does
     <WH_AUX HEAD AGR NUMBER> = sg
-WH_AUX -> do
+V_AUX -> do
     <WH_AUX HEAD AGR NUMBER> = pl
-WH_AUX -> did
+V_AUX -> did
 
 # prepositions
 P -> with
@@ -123,6 +131,13 @@ P -> on
 P -> at
 P -> through
 P -> to
+
+CONNECT -> and
+    <CONNECT FINAL> = true
+CONNECT -> ,
+    <CONNECT FINAL> = false
+CONNECT -> or
+    <CONNECT FINAL> = true
 
 # pronouns
 PR -> he
@@ -149,87 +164,156 @@ PR -> that
 # adverbs
 ADV -> where
     <ADV HEAD WH> = true
+    <ADV HEAD CAT> = PP
 ADV -> when
     <ADV HEAD WH> = true
+    <ADV HEAD CAT> = PP
 ADV -> why
     <ADV HEAD WH> = true
+    <ADV HEAD CAT> = PP
 
 SUBCOORD -> ADV
     <SUBCOORD HEAD> = <ADV HEAD>
 SUBCOORD -> PR
-    <PR HEAD WH> = true
     <SUBCOORD HEAD> = <PR HEAD>
+    <SUBCOORD HEAD CAT> = NP
 
 NP -> NN
+    <NP FINAL> = false
     <NN HEAD AGR CASE> = subject
     <NP HEAD> = <NN HEAD>
     <NP HEAD CAT> = NP
 NP -> D N
+    <NP FINAL> = false
     <N HEAD AGR CASE> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <D HEAD AGR ARTICLETYPE> = <N HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
     <NP HEAD CAT> = NP
 NP -> D ADJ N
+    <NP FINAL> = false
     <N HEAD AGR CASE> = subject
     <D HEAD AGR NUMBER> = <N HEAD AGR NUMBER>
     <D HEAD AGR ARTICLETYPE> = <ADJ HEAD AGR ARTICLETYPE>
     <NP HEAD> = <N HEAD>
     <NP HEAD CAT> = NP
 NP -> PR
+    <NP FINAL> = false
     <PR HEAD AGR CASE> = subject
     <NP HEAD> = <PR HEAD>
 NP -> PR N
+    <NP FINAL> = false
     <N HEAD AGR CASE> = subject
     <PR HEAD AGR CASE> = object
     <NP HEAD> = <N HEAD>
 NP -> NP PP
+    <NP FINAL> = false
     <NP HEAD> = <PP HEAD>
 # a rule for sentence dependent to a noun (e.g., 'he eats [an apple] -> (that john gave her)')
 NP -> NP S_DEPEND
+    <NP FINAL> = false
     <NP HEAD CAT> = NP
+    <S_DEPEND HEAD GAP> = none
 
+NP_ATOMIC -> NP
+    <NP_ATOMIC HEAD> = <NP HEAD>
+    <NP_ATOMIC FINAL> = <NP FINAL>
+NP -> NP_ATOMIC NP_CONT
+    <NP HEAD AGR NUMBER> = pl
+    <NP_CONT FINAL> = true
+    <NP HEAD FINAL> = <NP_CONT FINAL>
+NP_CONT -> CONNECT NP_ATOMIC
+    <CONNECT FINAL> = true
+    <NP_CONT FINAL> = true
+    <NP_CONT HEAD> = <NP_ATOMIC HEAD>
+NP_CONT -> CONNECT NP_ATOMIC
+    <CONNECT FINAL> = false
+    <NP_CONT FINAL> = <NP_ATOMIC FINAL>
+    <NP_CONT HEAD> = <NP_ATOMIC HEAD>
+        
 PP -> P NP
-    <PP HEAD AGREEMENT = NP HEAD AGREEMENT>
+    <PP HEAD AGR> = NP HEAD AGR>
     <PP HEAD CAT> = PP
 
+# gap propagates
 VP -> V
+    <VP FINAL> = false
     <VP HEAD> = <V HEAD>
-    <VP HEAD SUBCAT FIRST> = none
+
+# gap deletes
 VP -> V PP
-    <VP HEAD> = <V HEAD>
-    <VP HEAD SUBCAT FIRST CAT> = <PP HEAD CAT>
-    <VP HEAD SUBCAT SECOND> = none
+    <VP FINAL> = false
+    <VP HEAD AGR> = <V HEAD AGR>
+    <V HEAD GAP> = <PP HEAD CAT>
+    <VP HEAD GAP> = none
 VP -> V NP
-    <VP HEAD> = <V HEAD>
-    <VP HEAD SUBCAT FIRST CAT> = <NP HEAD CAT>
-    <VP HEAD SUBCAT SECOND> = none
-VP -> V NP PP
-    <VP HEAD> = <V HEAD>
-    <VP HEAD SUBCAT FIRST CAT> = <NP HEAD CAT>
-    <VP HEAD SUBCAT SECOND CAT> = <PP HEAD CAT>
-    <VP HEAD SUBCAT THIRD> = none
-VP -> V NP NP
-    <VP HEAD> = <V HEAD>
+    <VP FINAL> = false
+    <V HEAD GAP> = <NP HEAD CAT>
+    <VP HEAD AGR> = <V HEAD AGR>
+    <VP HEAD GAP> = none
 VP -> VP PP
-    <VP HEAD> = <VP HEAD>
+    <VP FINAL> = false
+    <VP HEAD GAP> = <VP V HEAD GAP>
 VP -> V S_DEPEND
-    <VP HEAD> = <V HEAD>
+    <VP FINAL> = false
+    <V HEAD GAP> = <S_DEPEND HEAD GAP>
+    <VP HEAD GAP> = none
+
+VP_ATOMIC -> VP
+    <VP_ATOMIC HEAD> = <VP HEAD>
+    <VP_ATOMIC FINAL> = <VP FINAL>
+VP -> VP_ATOMIC VP_CONT
+    <VP_ATOMIC HEAD GAP> = <VP_CONT HEAD GAP>
+    <VP HEAD GAP> = <VP_ATOMIC HEAD GAP>
+    <VP HEAD AGR> = <VP_CONT HEAD AGR>
+    <VP_CONT FINAL> = true
+    <VP HEAD FINAL> = <VP_CONT FINAL>
+VP_CONT -> CONNECT VP_ATOMIC
+    <CONNECT FINAL> = true
+    <VP_CONT FINAL> = true
+    <VP_CONT HEAD> = <VP_ATOMIC HEAD>
+VP_CONT -> CONNECT VP_ATOMIC
+    <CONNECT FINAL> = false
+    <VP_CONT FINAL> = <VP_ATOMIC FINAL>
+    <VP_CONT HEAD> = <VP_ATOMIC HEAD>
+
+# dependent sentences
+#gap deletes
+S_DEPEND -> SUBCOORD S
+    <S HEAD GAP> = <SUBCOORD HEAD CAT>
+S_DEPEND -> SUBCOORD S
+    <S HEAD GAP> = none
+
+# a wh-question
+WH_S -> SUBCOORD V_AUX NP VP
+    <VP HEAD GAP> = <SUBCOORD HEAD CAT>
+    <SUBCOORD HEAD WH> = true
+
+# this versions of WH-questions nonetheless they are more pretty
+# didn't work so well because of primitive gap technique
+# WH_S -> SUBCOORD S_Q
+#    <S_Q HEAD GAP> = <SUBCOORD HEAD CAT>
+#    <SUBCOORD HEAD WH> = true
+#
+# allow only those sentences whose gap was both specified and filled
+#WH_S -> SUBCOORD S_Q
+#    <S_Q HEAD GAP> = none
+#    <S_Q HEAD V GAP> = none
+#    <SUBCOORD HEAD WH> = true
+
+# a question
+S_Q -> V_AUX NP VP
+    <V_AUX HEAD AGR> = <NP HEAD AGR>
+    <VP HEAD AGR NUMBER> = pl
+    <S_Q HEAD GAP> = <VP HEAD GAP>
+
+# NP is missing, so put a gap at its place
+S -> VP
+    <S HEAD GAP> = NP
+S -> WH_S
+S -> S_Q
 S -> NP VP
     <NP HEAD AGR> = <VP HEAD AGR>
     <S HEAD> = <VP HEAD>
-
-S -> VP
-    <VP HEAD AGR NUMBER> = pl
-    <S HEAD> = <VP HEAD>
-
-# dependent sentences
-S_DEPEND -> SUBCOORD S
-S_DEPEND -> SUBCOORD VP
-
-# a wh-sentence rule
-S -> WH_S
-WH_S -> SUBCOORD WH_AUX NP VP
-    <VP HEAD AGR NUMBER> = pl
-    <WH_AUX HEAD AGR NUMBER> = <NP HEAD AGR NUMBER>
-    <SUBCOORD HEAD WH> = true
+S_NOGAPS -> S
+    <S HEAD GAP> = none
